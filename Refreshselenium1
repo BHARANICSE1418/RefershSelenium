@@ -1,0 +1,281 @@
+1.TakesScreenshot method
+
+  TakesScreenshot screenshot = (TakesScreenshot) driver;
+  File source=screenshot.GetScreenshotAs(OutputType.FILE);
+  FileUtills.copyFile(Source, new File("   "));
+
+
+2. Implicit wait
+
+   driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+
+
+3. Explicit with
+
+  WebDriverWait wait= new WebDriverWait(driver,30)
+  wait.untill(ExpectedConditions.elementToBeClickable(By.xpath());
+
+
+4. Fluent wait
+
+  Wait wait = new FluentWait(WebDriver Reference)
+  .withTimeout(timeout, TimeUnit.SECONDS)
+  .pollingEvery(timeout, TimeUnit.SECONDS)
+  .ignoring(Expection.class);
+
+
+5. quit
+
+  driver.quit();
+
+
+6. close
+
+  driver.close();
+
+
+7. windows maximize and minimize
+
+  driver.manage().window().maximize();
+  driver.manage().window().minimize();
+
+8. forward and back and refresh
+
+   driver.manage().forward();
+   driver.manage().back();
+   driver.manage().refresh();
+
+9. dropdown
+
+  WebElement element=driver.findElement(By.id(" ");
+  Select select = new Select(element)
+  select.SelectByIndex();
+  select.SelectByValue();
+  select.SelectByVisiableText();
+
+10. sendKeys
+
+   1. driver.findElement(By.id(" ")).sendKeys("Test");
+
+  
+   2. WebElement element=driver.findElement(By.id(" "));
+      JavascriptExecutor execute= JavascriptExecutor (driver);
+      execute.executeScript("arguments[0].value='   ';", element);
+
+
+11. DragandDrop
+
+  1. WebElement from=driver.findElement(By.id("from"));
+     WebElement to  =driver.findElement(By.id("to"));
+     Actions action= new Actions(driver);
+     action.dragAndDrop(from,to).build().perform();
+
+  2. WebElement from=driver.findElement(By.id("from"));
+     Actions action= new Actions(driver);
+     action.dragAndDropBy(from,60,40).build().perform();  
+
+  3.WebElement from=driver.findElement(By.id("from"));
+    WebElement to  =driver.findElement(By.id("to"));
+    Actions action= new Actions(driver); 
+    action.clickAndHold(WebElement from).moveToElement(WebElement to).release().build().perform();
+
+12.  Alert
+
+    Alert alert=driver.switchTo().alert();
+    alert.dismiss();
+    alert.accept();
+    alert.sendKeys("Test");  
+
+13. Frames
+
+    driver.switchTo().frame(5);----------> frame index
+    driver.switchTo().frame("frame id");-> frame id
+    driver.switchTo().frame("frame name");-> frame name
+    driver.switchTo().parentFrame(); ------> parentframe
+    driver.switchTo().defaultContent();-----> defaultContent
+
+14. print all valuse in dropdown
+
+    WebElement element =driver.findElement(By.id(" "));
+    Select select= new Select(element);
+    List<WebElement> alloptions=select.getOptions();
+    List<String> allvalues= new ArrayList<String>();
+    for(WebElement options: alloptions)
+    {
+      allvalues.add(options.getText());
+    }
+    System.out.println(allvalues);
+
+
+
+15. Click
+
+     driver.findElement(By.id(" ")).click();
+    
+     WebElement element=driver.findElement(By.id(" "));
+     Actions action= new Actions(driver);
+     action.contaxtClick(element).perform();
+     action.doubleClick(element).perform();
+
+
+
+16. Read cell value from excel
+
+
+     String fileLocation="   ";
+     XSSFWorkBook book= new XSSFWorkBook(fileLocation);
+     XSSFSheet sheet=book.getSheetAt(0);
+     XSSFRow row=sheet.getRow(1);
+     XSSFCell cell=row.getCell(0);
+     String cellvalue=cell.getStringCellValue();
+     System.out.println(cellvalue)
+
+
+17.  Scrolldown
+
+    1. JavascriptExecutor execute= JavascriptExecutor (driver);
+       execute.executeScript("window.scrollBy(0,80)")
+
+
+    2. WebElement element=driver.findElement(By.id(" "));
+       JavascriptExecutor execute= JavascriptExecutor (driver);
+       execute.executeScript("arguments[0].scrollIntoView();", element);
+
+
+18. Window handles
+
+   String parentwindow=driver.getWindowHandle();
+   driver.findElement(by.id("  ")).click();
+   set<String> windowhandles=driver.getWindowHandles();
+   for( String handle: windowhandles)
+   {
+     if(! handle.equals(parentwindow))
+     {
+      driver.switchTo().window(handle);
+      driver.close();
+     }
+   }
+   driver.switchTo().window(parentwindow);
+   driver.close();
+
+
+19. get all table values
+
+    WebElement element=driver.findElement(By.id(" "));
+    List<WebElement> alldata=driver.findElement(By.tagname("  "));
+
+     for( WebElement data: alldate)
+      {
+        String finaldate=data.getText();
+        System.out.println(finaldate);
+      }
+
+
+
+20. xpath
+
+   1. Relative xpath:
+
+    //tagname[@attribute='value']
+
+    //input[@id='btname']
+
+   2. contains
+
+    //div[contains(@id,'btname')]
+
+
+
+21. Ecplise to github
+
+  Window->showview->others->GitRepository->create new local gitrepository or close gitrepository
+  enter the username and password for github login
+  commit and push
+
+22. clone github
+
+1. Open Git Bash
+2. Navigate to the directory where you want to add the cloned directory
+3. Go to the repository page you want to clone
+4. Click Clone or download and copy the URL
+5. In the command line, type git clone
+6. Paste the URL
+7. Press Enter
+
+23. RestAssured GET method:
+
+   @Test
+  public void getmethodresrassured()
+  {
+      RestAssured.baseURI="https://testcompany.com/employee/list";
+
+      Response response= RestAssured.given().request(Method.GET,"/all");
+
+      Assert.assertequals(200,response.getStatusCode());
+
+      System.out.println("output is=="+ response.getBody().asString());
+  
+  }
+  
+24. RestAssured POST method:
+
+    
+ @Test
+
+ public void RestAssuredPostmetod()
+{
+
+  JSONObject empparams= new JSONObject();
+  empParms.put("name","bharani");
+  empParms.put("role","QA");
+
+
+  given()
+  .ContentType(ContentType.JSON)
+  .body(empParms.toString());
+  .log().all()
+
+  .When()
+  .POST("https:/testcompany/employee)
+  
+  .then()
+  .assertThar().statusCode(200)
+  .body("name",equalTo("bharani");
+  .body("role",equalTO("QA");
+  .log().all();
+
+}
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+     
+      
+
+   
+       
+
+   
+   
+    
+
+   
+    
+
+         
+    
+   
